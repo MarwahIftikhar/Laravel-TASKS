@@ -5,14 +5,12 @@
 <h2>Departments</h2>
 
 @if(session('success'))
-
     <p style="color: green;">
         {{ session('success') }}
     </p>
-
 @endif
 
-<a href="/departments/create">Add Department</a>
+<a href="{{ route('departments.create') }}">Add Department</a>
 
 <br><br>
 
@@ -33,9 +31,10 @@
         <td>{{ $department->description }}</td>
 
         <td>
-            <a href="/departments/{{ $department->id }}/edit">Edit</a>
 
-            <form action="/departments/{{ $department->id }}"
+            <a href="{{ route('departments.edit', $department->id) }}">Edit</a>
+
+            <form action="{{ route('departments.destroy', $department->id) }}"
                   method="POST"
                   style="display:inline;"
                   onsubmit="return confirm('Are you sure you want to delete this department?');">
@@ -46,6 +45,7 @@
                 <button type="submit">Delete</button>
 
             </form>
+
         </td>
 
     </tr>

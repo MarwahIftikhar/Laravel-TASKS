@@ -31,8 +31,14 @@ class DepartmentController extends Controller
             'description' => $request->description
         ]);
 
-        return redirect('/departments')
-            ->with('success', 'Department added successfully.');
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => 'Department added successfully.'
+            ]);
+        }
+
+        return redirect()->route('departments.index')
+                         ->with('success', 'Department added successfully.');
     }
 
     public function show(string $id)
@@ -61,8 +67,8 @@ class DepartmentController extends Controller
             'description' => $request->description
         ]);
 
-        return redirect('/departments')
-            ->with('success', 'Department updated successfully.');
+        return redirect()->route('departments.index')
+                         ->with('success', 'Department updated successfully.');
     }
 
     public function destroy(string $id)
@@ -71,7 +77,7 @@ class DepartmentController extends Controller
 
         $department->delete();
 
-        return redirect('/departments')
-            ->with('success', 'Department deleted successfully.');
+        return redirect()->route('departments.index')
+                         ->with('success', 'Department deleted successfully.');
     }
 }
